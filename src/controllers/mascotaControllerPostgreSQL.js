@@ -1,14 +1,15 @@
-const MascotaRepository = require('../models/MascotaRepository');
+const MascotaRepositoryPostgreSQL = require('../models/MascotaRepositoryPostgreSQL');
 
 class MascotaController {
     constructor() {
-        this.repository = MascotaRepository.getInstance();
+        this.repository = MascotaRepositoryPostgreSQL.getInstance();
     }
 
-    listarTodas = (req, res) => {
+    // GET /mascotas - Listar todas las mascotas
+    listarTodas = async (req, res) => {
         try {
-            const mascotas = this.repository.obtenerTodas();
-            const estadisticas = this.repository.obtenerEstadisticas();
+            const mascotas = await this.repository.obtenerTodas();
+            const estadisticas = await this.repository.obtenerEstadisticas();
 
             res.json({
                 success: true,
@@ -25,10 +26,11 @@ class MascotaController {
         }
     };
 
-    obtenerPorId = (req, res) => {
+    // GET /mascotas/:id - Obtener mascota por ID
+    obtenerPorId = async (req, res) => {
         try {
             const { id } = req.params;
-            const mascota = this.repository.obtenerPorId(id);
+            const mascota = await this.repository.obtenerPorId(id);
 
             if (!mascota) {
                 return res.status(404).json({
@@ -50,9 +52,10 @@ class MascotaController {
         }
     };
 
-    crear = (req, res) => {
+    // POST /mascotas - Crear nueva mascota
+    crear = async (req, res) => {
         try {
-            const nuevaMascota = this.repository.crear(req.body);
+            const nuevaMascota = await this.repository.crear(req.body);
 
             res.status(201).json({
                 success: true,
@@ -68,10 +71,11 @@ class MascotaController {
         }
     };
 
-    actualizar = (req, res) => {
+    // PUT /mascotas/:id - Actualizar mascota
+    actualizar = async (req, res) => {
         try {
             const { id } = req.params;
-            const mascotaActualizada = this.repository.actualizar(id, req.body);
+            const mascotaActualizada = await this.repository.actualizar(id, req.body);
 
             if (!mascotaActualizada) {
                 return res.status(404).json({
@@ -94,10 +98,11 @@ class MascotaController {
         }
     };
 
-    eliminar = (req, res) => {
+    // DELETE /mascotas/:id - Eliminar mascota
+    eliminar = async (req, res) => {
         try {
             const { id } = req.params;
-            const mascotaEliminada = this.repository.eliminar(id);
+            const mascotaEliminada = await this.repository.eliminar(id);
 
             if (!mascotaEliminada) {
                 return res.status(404).json({

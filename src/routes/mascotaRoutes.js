@@ -1,5 +1,5 @@
 const express = require('express');
-const MascotaController = require('../controllers/mascotaController');
+const MascotaController = require('../controllers/mascotaControllerPostgreSQL');
 
 const router = express.Router();
 const mascotaController = new MascotaController();
