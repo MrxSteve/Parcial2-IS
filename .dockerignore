@@ -1,0 +1,24 @@
+# Archivos y carpetas a excluir del contexto de Docker
+node_modules
+.git
+logs
+.env
+
+# Archivos de desarrollo
+.gitignore
+.vscode/
+.idea/
+*.log
+
+# Archivos temporales
+tmp/
+temp/
+*.tmp
+
+# Documentación de desarrollo (opcional)
+README.md
+docs/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
